@@ -66,7 +66,7 @@ RUN git config --global advice.detachedHead false
 COPY ./installers /installers
 
 # Build custom extensions and move it to /artifacts folder
-RUN mkdir /artifacts
+#RUN mkdir /artifacts
 
 # Update openssl from openssl 1.0.2g to 1.0.2o
 RUN bash /installers/openssl.sh
@@ -174,7 +174,7 @@ RUN mkdir -p \
     /var/lib/nginx/{cache,proxy} \
     $COMPOSER_HOME
 
-COPY --from=build-env /artifacts/ /
+#COPY --from=build-env /artifacts/ /
 COPY ./configs/etc/php/7.2/ /etc/php/7.2/
 
 RUN wget -qO- https://getcomposer.org/installer | \
