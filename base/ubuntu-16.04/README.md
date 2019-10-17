@@ -1,10 +1,54 @@
+### RUN APPLICATION
+
 ``` sh
-# run application
+# terminal
 docker run \
     -p 9001:9001 -p 80:80 \
     -v /$(pwd):/app \
     -v /$(pwd)/docker/nginx.conf:/etc/nginx/sites-enabled/default:ro \
-     -d --name app devbase-base 
+    -d --name app devbase-base 
+```
+
+``` sh
+# terminal
+docker-compose up -d
+```
+
+
+``` ruby
+# docker-compose.yml
+version: '3'
+
+services:
+  mysqlsrv:
+    image: "mysql:5.7"
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "root"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+    networks:
+      - mysql-compose-network
+
+  appsrv:
+    #build: ./docker/
+    image: "facchin/devbase-base:ubuntu-16.04"
+    container_name: app
+    ports:
+      - "80:80"
+      - "9001:9001"
+    volumes:
+      - ./:/app
+      - ./docker/nginx.conf:/etc/nginx/sites-enabled/default:ro
+    networks:
+      - mysql-compose-network
+
+networks: 
+  mysql-compose-network:
+    driver: bridge
 ```
 
 
