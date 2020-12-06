@@ -40,7 +40,12 @@ RUN apt-get clean -y \
     && dpkg-reconfigure --frontend noninteractive tzdata \
     && apt-add-repository -y multiverse \
     && apt-get update -y \
-    && apt-get upgrade -y 
+    && apt-get upgrade -y
+
+# entrypoint
+RUN echo $'#!/usr/bin/env sh\n\
+while true; do sleep 10; done;' > /usr/bin/entrypoint && \
+    chmod +x /usr/bin/entrypoint
     
 # cleanup
 RUN apt-get autoremove -y \
