@@ -41,6 +41,11 @@ RUN apt-get clean -y \
     && apt-get update -y \
     && apt-get upgrade -y 
 
+# entrypoint
+RUN echo $'#!/usr/bin/env sh\n\
+while true; do sleep 10; done;' > /usr/bin/entrypoint && \
+    chmod +x /usr/bin/entrypoint
+    
 # cleanup
 RUN apt-get autoremove -y \
     && apt-get clean -y \

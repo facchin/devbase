@@ -26,6 +26,11 @@ RUN apk update \
     && ln -sf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
     && echo "${TIMEZONE}" | tee /etc/timezone
 
+# entrypoint
+RUN echo $'#!/usr/bin/env sh\n\
+while true; do sleep 10; done;' > /usr/bin/entrypoint && \
+    chmod +x /usr/bin/entrypoint
+
 # cleanup
 RUN rm -rf /tmp/* /var/cache/apk/* \
     && find /var/log -type f | while read f; do echo -n '' > ${f}; done
