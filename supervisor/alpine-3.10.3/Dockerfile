@@ -10,8 +10,6 @@ RUN echo "facchin.devbase.supervisor.alpine-3.10.3" >> /image.txt
 ENV SUPERVISOR_VERSION=4.0.1 \
     GOSU_VERSION=1.11
 
-RUN true
-
 # install base packages
 RUN apk update \
     && apk upgrade --force \
